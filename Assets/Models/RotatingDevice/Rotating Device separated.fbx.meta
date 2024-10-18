@@ -3,7 +3,22 @@ guid: 33c602224150a694ab1a42bac941ea0a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cables
+    second: {fileID: 2100000, guid: 101841b7967610445bd23a1fee840719, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Connectors
+    second: {fileID: 2100000, guid: 14d28ab728da7ef4a83c2b308a1271aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plate
+    second: {fileID: 2100000, guid: ac0d4b554cc4f6c4e98eb72de94a9366, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
