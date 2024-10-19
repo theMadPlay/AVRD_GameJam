@@ -14,17 +14,11 @@ public class RotatingPuzzle : MonoBehaviour
     public UnityEvent<bool> OnLight1state;
     public UnityEvent<bool> OnLight2state;
 
-    public Renderer Cable1Renderer;
-    public Material Cable1off;
-    public Material Cable1on;
-
-    public Renderer Cable2Renderer;
-    public Material Cable2off;
-    public Material Cable2on;
-
     private float _knobValue = 0.0f;
     private bool light1on = false;
     private bool light2on = false;
+
+    private bool light1onOnce = false;
     
     private void Start()
     {
@@ -40,29 +34,29 @@ public class RotatingPuzzle : MonoBehaviour
             if (!light1on)
             {
                 light1on = true;
-                Cable1Renderer.material = Cable1on;
+                light1onOnce = true;
                 OnLight1state.Invoke(true);
             }
         }
         else if(_knobValue <= Light2Value + Bufferzone/2 && _knobValue >= Light2Value - Bufferzone/2)
         {
+            if (!light1onOnce) // only turn on full lamp if path cleared
+                return;
+
             if (!light2on)
             {
                 light2on = true;
-                Cable2Renderer.material = Cable2on;
                 OnLight2state.Invoke(true);
             }
         }
         else if (light1on)
         {
             light1on = false;
-            Cable1Renderer.material = Cable1off;
             OnLight1state.Invoke(false);
         }
         else if (light2on)
         {
             light2on = false;
-            Cable2Renderer.material = Cable2off;
             OnLight2state.Invoke(false);
         }
     }
