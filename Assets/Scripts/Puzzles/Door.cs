@@ -45,8 +45,8 @@ public class Door : MonoBehaviour
 
     private void OnLightChange(bool state)
     {
-        GetComponent<Renderer>().enabled = state;
-        GetComponent<Collider>().enabled = state;
+        GetComponent<Renderer>().enabled = !state;
+        GetComponent<Collider>().enabled = !state;
     }
 
     private void OnBlue(bool state)
