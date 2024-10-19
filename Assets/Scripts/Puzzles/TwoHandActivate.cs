@@ -16,6 +16,7 @@ public class TwoHandActivate : MonoBehaviour
 
     public UnityEvent OnGrabbingStart;
     public UnityEvent OnGrabbingEnd;
+    public UnityEvent OnResetGrab;
 
     private void OnEnable()
     {
@@ -58,6 +59,12 @@ public class TwoHandActivate : MonoBehaviour
         leftState = state;
         if(rightState && leftState) { OnGrabbingStart.Invoke(); if (DisableOnSuccessfulGrab) enabled = false; }
         if (rightState && !leftState) { OnGrabbingEnd.Invoke(); }
+    }
+
+    public void ResetGrab()
+    {
+        OnResetGrab.Invoke();
+        enabled = true;
     }
 
     private void OnDisable()
