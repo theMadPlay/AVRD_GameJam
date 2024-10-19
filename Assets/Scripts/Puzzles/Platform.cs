@@ -18,6 +18,9 @@ public class Platform : MonoBehaviour
     public UnityEvent<bool> ArrivedAtTarget;
     private Vector3 targetPostion; // declare here
 
+    public UnityEvent TurnOnBlue;
+    public UnityEvent TurnOffBlue;
+
     private void Start()
     {
         _startPosition = StartTransform.position;
@@ -28,6 +31,8 @@ public class Platform : MonoBehaviour
 
     public void EnablePlatform(bool state)
     {
+        if (!state)
+            TurnOffBlue.Invoke();
         StartCoroutine(MoveToTarget(state));
     }
 
@@ -46,6 +51,12 @@ public class Platform : MonoBehaviour
 
         targetPostion = endPosition; // ensure targetPostion is at the end position
         ArrivedAtTarget.Invoke(state);
+    }
+    
+    public void TurnOnLightAttempt()
+    {
+        if(Vector3.Distance(_platformObject.transform.position,_startPosition)<=0.2)
+            TurnOnBlue.Invoke();
     }
 
     private void LateUpdate()

@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class Dropzone : MonoBehaviour
 {
     public Platform PlatformScript;
+    public Transform targetPosition;
     private bool lockState = false;
 
     private GameObject _collectedObject = null;
@@ -54,8 +55,8 @@ public class Dropzone : MonoBehaviour
             {
                 
                 holdingOn = false;
-                _collectedObject.transform.position = transform.position;
-                _collectedObject.transform.rotation = transform.rotation;
+                _collectedObject.transform.position = targetPosition.position;
+                _collectedObject.transform.rotation = targetPosition.rotation;
                 GetComponent<Renderer>().enabled = false;
                 lockState = true;
                 PlatformScript.EnablePlatform(true);
@@ -72,6 +73,14 @@ public class Dropzone : MonoBehaviour
         }
     }
 
+    public void RemovedBattery()
+    {
+        if (_collectedObject != null)
+        {
+            PlatformScript.EnablePlatform(false);
+            _collectedObject = null;
+        }
+    }
 
     public void SetLockState(bool state)
     {
@@ -90,9 +99,17 @@ public class Dropzone : MonoBehaviour
     private void WaitForArrive(bool state)
     {
         if (state)
+        {
             ArrivedInOtherRoom.Invoke();
+            QuestHandler.Instance.LightStateChange(LIGHT_COLOR.Yellow, true);
+            QuestHandler.Instance.LightStateChange(LIGHT_COLOR.Blue, false);
+        }
         else
+        {
+            QuestHandler.Instance.LightStateChange(LIGHT_COLOR.Yellow, false);
+            QuestHandler.Instance.LightStateChange(LIGHT_COLOR.Blue, true);
             ArrivedAtStart.Invoke();
+        }
         SetLockState(false);
     }
 }
