@@ -330,7 +330,7 @@ namespace Unity.VRTemplate
                 m_ForwardVectorAngles.SetTargetFromVector(localForward);
 
             // Apply offset to base knob rotation to get new knob rotation
-            var knobRotation = m_BaseKnobRotation - ((m_UpVectorAngles.totalOffset + m_ForwardVectorAngles.totalOffset) * m_TwistSensitivity) - m_PositionAngles.totalOffset;
+            var knobRotation = m_BaseKnobRotation + ((m_UpVectorAngles.totalOffset + m_ForwardVectorAngles.totalOffset) * m_TwistSensitivity) - m_PositionAngles.totalOffset;
 
             // Clamp to range
             if (m_ClampedMotion)
