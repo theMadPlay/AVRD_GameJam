@@ -47,6 +47,19 @@ public class Door : MonoBehaviour
     {
         GetComponent<Renderer>().enabled = !state;
         GetComponent<Collider>().enabled = !state;
+
+        if(DoorColor == LIGHT_COLOR.Yellow && _redActive && _greenActive)
+        {
+            GetComponent<Renderer>().enabled = false;
+            GetComponent<Collider>().enabled = false;
+        }
+        
+        if(IsPinkDoor && _redActive && _blueActive)
+        {
+            GetComponent<Renderer>().enabled = false;
+            GetComponent<Collider>().enabled = false;
+        }
+
     }
 
     private void OnBlue(bool state)
